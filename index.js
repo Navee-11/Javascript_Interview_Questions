@@ -693,7 +693,7 @@ console.timeEnd("Timer"); */
 console.log(capitalize("i love javscript")); */
 // console.timeEnd("Timer");
 // 45.	Flatten Nested Array in JavaScript using Recursion and flat Method
-console.time("Timer");
+/* console.time("Timer");
 let flattenArray = (arr) => {
   let finalArray = [];
   for (let i = 0; i < arr.length; i++) {
@@ -706,12 +706,87 @@ let flattenArray = (arr) => {
   return finalArray;
 };
 console.log(flattenArray([1, 2, 3, [1, 2, [3, 4, 5], 2], 4]));
-console.timeEnd("Timer");
-// 33.	Check if Two Numbers are Anagrams
-// 32.	Find Intersection of Two Arrays
-// 33.	Find All Pairs with Target Sum
-// 34.	Get All Keys from the Objects
-// 35.	Get All the Values from Object
+console.timeEnd("Timer"); */
+// 46.	Check if Two Numbers are Anagrams
+/* console.time("Timer");
+let isAnagrams = (num1, num2) => {
+  let freq = {};
+  while (num1 > 0) {
+    digit = num1 % 10;
+    freq[digit] = (freq[digit] || 0) + 1;
+    num1 = Math.floor(num1 / 10);
+  }
+  while (num2 > 0) {
+    digit = num2 % 10;
+    freq[digit] = (freq[digit] || 0) - 1;
+    num2 = Math.floor(num2 / 10);
+  }
+  console.log(freq);
+  for (const key in freq) {
+    if (freq[key] !== 0) {
+      return false;
+    }
+  }
+  return true;
+};
+
+console.log(isAnagrams(234, 4325));
+console.timeEnd("Timer"); */
+// 47.	Find Intersection of Two Arrays
+/* console.time("Timer");
+const intersectionOfArrays = (arr1, arr2) => {
+  let result = [];
+  for (let i = 0; i < arr1.length; i++) {
+    if (arr2.includes(arr1[i]) && !result.includes(arr1[i])) {
+      result[result.length] = arr1[i];
+    }
+  }
+  return result;
+};
+console.log(intersectionOfArrays([1, 2, 5, 2, 3, 4], [1, 2, 3, 4]));
+console.timeEnd("Timer"); */
+// 48.	Find All Pairs with Target Sum
+/* console.time("Timer");
+const targetSum = (arr, target) => {
+  let result = [];
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[i] + arr[j] === target) {
+        result.push([arr[i], arr[j]]);
+      }
+    }
+  }
+  return result;
+};
+console.log(targetSum([2, 3, 4, 5, 6, 1, 7, 8, 9], 8));
+console.timeEnd("Timer"); */
+// 49.	Get All Keys from the Objects
+/* console.time("Timer");
+const getKeys = (obj) => {
+  // return Object.keys(obj);
+  let keys = [];
+  for (const key in obj) {
+    // keys.push(key);
+    keys[keys.length] = key;
+  }
+  return keys;
+};
+console.log(getKeys({ a: 1, b: 2, c: 3 }));
+console.timeEnd("Timer"); */
+
+// 50.	Get All the Values from Object
+/* console.time("Timer");
+const getValues = (obj) => {
+  // return Object.values(obj);
+  let values = [];
+  for (const key in obj) {
+    // values.push(obj[key]);
+    values[values.length] = obj[key];
+  }
+  return values;
+};
+console.log(getValues({ a: 1, b: 2, c: 3 }));
+console.timeEnd("Timer"); */
 // 36.	Get All the Entries from Object
 // 37.	Check if Object is Empty using 4 Methods
 // 38.	Merge Two Objects using 2 Methods
