@@ -787,11 +787,96 @@ const getValues = (obj) => {
 };
 console.log(getValues({ a: 1, b: 2, c: 3 }));
 console.timeEnd("Timer"); */
-// 36.	Get All the Entries from Object
-// 37.	Check if Object is Empty using 4 Methods
-// 38.	Merge Two Objects using 2 Methods
-// 39.	Shallow Copy using 3 Methods
-// 40.	Deep Copy of Object using 3 Methods
+// 51.	Get All the Entries from Object
+/* console.time("Timer");
+const getEntries = (obj) => {
+  // return Object.entries(obj);
+  let entries = [];
+  for (const key in obj) {
+    // entries.push([key, obj[key]]);
+    entries[entries.length] = [key, obj[key]];
+  }
+  return entries;
+};
+console.log(getEntries({ a: 1, b: 2, c: 3 }));
+console.timeEnd("Timer"); */
+// 52.	Check if Object is Empty using 4 Methods
+/* console.time("Timer");
+const isObjectEmpty = (obj) => {
+  // return Object.keys(obj).length === 0 ? true : false;
+  // return Object.entries(obj).length === 0 ? true : false;
+  return JSON.stringify(obj) === "{}";
+  for (const key in obj) {
+    return false;
+  }
+  return true; 
+};
+console.log(isObjectEmpty({ a: 1 }));
+console.timeEnd("Timer"); */
+// 53.	Merge Two Objects using 3 Methods
+// console.time("Timer");
+// const mergeObjects = (obj1, obj2) => {
+//   let result = {};
+//   return { ...obj1, ...obj2 };
+//   return Object.assign({}, obj1, obj2);
+
+//   for (const key in obj1) {
+//     result[key] = obj1[key];
+//   }
+//   for (const key in obj2) {
+//     result[key] = obj2[key];
+//   }
+//   for (const key in obj1) {
+//     result = { ...result, ...{ [key]: obj1[key] } };
+//   }
+//   return result;
+// };
+// console.log(mergeObjects({ a: 1, b: 2 }, { c: 3, d: 4 }));
+// console.timeEnd("Timer");
+// 54.	Shallow Copy using 3 Methods=Only the first level is copied,nested objects shares the same reference
+// console.time("Timer");
+// const shallowCopy = (obj) => {
+// let copy = { ...obj };
+// let copy = {};
+/*   for (const key in obj) {
+    copy[key] = obj[key];
+  }
+  copy.b = 100; //Nested object still points to same reference i.e, obj
+  console.log(obj, "Parent Object"); //100
+  return copy; */
+// let copy = Object.assign({}, obj);
+// copy.b = 100;
+// console.log(obj.b, "Parent Object property b");
+// console.log(obj); //Parent remains same as there is no change is nested property c
+// return copy;
+// };
+// console.log(shallowCopy({ a: 1, b: { c: 20 } }));
+// console.timeEnd("Timer");
+// 55.	Deep Copy of Object using 3 Methods-Nested object do not share same references so any change in them does not affect parent
+console.time("Timer");
+
+const deepCopy = (obj) => {
+  //Structured clone
+  /*   let copy = structuredClone(obj);
+  copy.b.c = 100;
+  console.log(obj);
+  return copy; */
+  //JSON.stringify
+  /*  let copy = JSON.parse(JSON.stringify(obj));
+  return copy; */
+  //For in loop
+  if (obj === null || typeof ob !== "object") {
+    return obj;
+  }
+  let copy = {};
+  for (const key in obj) {
+    copy[key] = deepCopy(obj);
+  }
+  return copy;
+};
+console.log(deepCopy({ a: 1, b: { c: 20 } }));
+console.timeEnd("Timer");
+
 // 41.	Check if Property Exists in Object – 4 Methods
 // 42.	Remove Property from Object (3 Methods)
 // 43.	Add New Property to an Object – 4 Methods
