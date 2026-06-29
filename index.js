@@ -853,73 +853,728 @@ console.timeEnd("Timer"); */
 // console.log(shallowCopy({ a: 1, b: { c: 20 } }));
 // console.timeEnd("Timer");
 // 55.	Deep Copy of Object using 3 Methods-Nested object do not share same references so any change in them does not affect parent
-console.time("Timer");
+// console.time("Timer");
 
-const deepCopy = (obj) => {
-  //Structured clone
-  /*   let copy = structuredClone(obj);
+// const deepCopy = (obj) => {
+//Structured clone
+/*   let copy = structuredClone(obj);
   copy.b.c = 100;
   console.log(obj);
   return copy; */
-  //JSON.stringify
-  /*  let copy = JSON.parse(JSON.stringify(obj));
+//JSON.stringify
+/*  let copy = JSON.parse(JSON.stringify(obj));
   return copy; */
-  //For in loop
-  if (obj === null || typeof ob !== "object") {
-    return obj;
-  }
-  let copy = {};
-  for (const key in obj) {
-    copy[key] = deepCopy(obj);
-  }
-  return copy;
-};
-console.log(deepCopy({ a: 1, b: { c: 20 } }));
-console.timeEnd("Timer");
+//For in loop
+//   if (obj === null || typeof ob !== "object") {
+//     return obj;
+//   }
+//   let copy = {};
+//   for (const key in obj) {
+//     copy[key] = deepCopy(obj);
+//   }
+//   return copy;
+// };
+// console.log(deepCopy({ a: 1, b: { c: 20 } }));
+// console.timeEnd("Timer");
 
-// 41.	Check if Property Exists in Object – 4 Methods
-// 42.	Remove Property from Object (3 Methods)
-// 43.	Add New Property to an Object – 4 Methods
-// 44.	Updating an Existing Property in an Object
-// 45.	Swap Keys and Values in an Object
-// 46.	Convert Object → Query String
-// 47.	Remove Duplicate Objects from an Array
-// 48.	Group Objects by Property
-// 49.	Sort Array of Objects by Key
-// 50.	Add a Prefix to All Object Keys
-// 51.	Find Most Expensive Product
-// 52.	Get Total Price of Cart
-// 53.	How to Calculate the Average Product Rating
-// 54.	How Event Loop Works!!
-// 55.	Create Breadcrumbs from URL
-// 56.	Convert Uppercase → Lowercase (ASCII)
-// 57.	Convert Lowercase → Uppercase (ASCII)
-// 58.	Find the Longest Word in a Sentence
-// 59.	Print Square Pattern (5×5)
-// 60.	Print Right Triangle Star Pattern
-// 61.	Print Inverted Triangle
-// 62.	Print Hollow Square 5×5
-// 63.	Print Number Triangle Pattern
-// 64.	Print Hollow Left Triangle Pattern
-// 65.	Print Floyd’s Triangle
-// 66.	Print Alphabet Triangle Pattern
-// 67.	Print Square with Main Diagonal Stars
-// 68.	Print a 5×5 Square of Numbers (Same Number in Each Row)
-// 69.	Print a 5×5 Square using Alphabets
-// 70.	Find Transpose of a Matrix
-// 71.	Add Two Matrices
-// 72.	Check if a Matrix is Symmetric
-// 73.	Linear Search (Manual Implementation)
-// 74.	Binary Search (Iterative)
-// 75.	Bubble Sort (Optimized)
-// 76.	Selection Sort
-// 77.	Insertion Sort
-// 78.	Quick Sort (Recursive)
-// 79.	Find Subarray with Maximum Sum
-// 80.	Custom map() Implementation
-// 81.	Custom filter() Implementation
-// 82.	Custom reduce() Implementation
-// 83.	Two Sum (Using HashMap – Optimal)
-// 84.	Freeze Object (Immutable)
-// 85.	Object.seal() Example
-// 86.	Toggle Case in JavaScript
+// 56.	Check if Property Exists in Object – 4 Methods
+
+//For in loop and hasOwnProperty
+// const isProperty = (obj, key) => {
+// console.log(key in obj);
+// console.log(obj.hasOwnProperty("b"));
+// console.log(Object.hasOwn(obj, "b"));
+// console.log(Object.keys(obj).includes("b"));
+// };
+// isProperty({ a: 1, b: 2, c: 3 }, "b");
+
+// 57.	Remove Property from Object (3 Methods)
+// const removeProperty = (obj) => {
+//   // delete obj.a;
+//   // console.log(obj);
+//   let { b, ...rest } = obj;
+//   console.log(rest);
+//   console.log(
+//     Object.fromEntries(Object.entries(obj).filter(([key]) => key !== "b")),
+//   );
+// };
+// removeProperty({ a: 1, b: 2, c: 3 });
+// 58.	Add New Property to an Object – 4 Methods
+// let obj = { a: 1, b: 2, c: 3 };
+// obj.d = 4;
+// console.log(obj);
+// obj["e"] = 5;
+// console.log(obj);
+// let obj2 = { ...obj, f: 6 };
+// console.log(obj2);
+// let obj3 = Object.assign({}, obj, { g: 7 });
+// console.log(obj3);
+
+// 59.	Updating an Existing Property in an Object
+// let obj = { a: 1, b: 2, c: 3 };
+// obj.b = 10;
+// console.log(obj);
+// obj["b"] = 20;
+// console.log(obj);
+// obj = { ...obj, b: 10 };
+// console.log(obj);
+// let obj2 = Object.assign({}, obj, { b: 15 });
+// console.log(obj2);
+
+// 60.	Swap Keys and Values in an Object
+/* const swap = (obj) => {
+  let obj2 = {};
+  for (const key in obj) {
+    obj2[obj[key]] = key;
+  }
+  return obj2;
+};
+console.log(swap({ a: 1, b: 2, c: 3 })); */
+
+// 61.	Convert Object → Query String
+//let obj = { name: "Naveen", age: 24 };
+// let queryString = new URLSearchParams(obj).toString();
+// console.log(queryString);
+/* let queryString = Object.entries(obj)
+  .map(([key, value]) => {
+    return `${key}=${value}`;
+  })
+  .join("&");
+console.log(queryString); */
+// let queryString = "";
+// for (const key in obj) {
+//   queryString += `${key}=${obj[key]}&`;
+// }
+// console.log(queryString.slice(0, -1));
+
+// 62.	Remove Duplicate Objects from an Array
+//Using JSON.stringify(obj)
+/* let arr = [
+  { id: 1, name: "Kotlin" },
+  { id: 2, name: "Java" },
+  { id: 1, name: "Javacript" },
+]; */
+/* const unique = [...new Set(arr.map((obj) => JSON.stringify(obj)))].map((obj) =>
+  JSON.parse(obj),
+);
+console.log(unique); */
+//Using key
+/* let seen = new Set();
+const unique = arr.filter((obj) => {
+  if (seen.has(obj.id)) {
+    return false;
+  }
+  seen.add(obj.id);
+  return true;
+});
+console.log(unique); */
+// 63.	Group Objects by Property
+/* let arr = [
+  { id: 1, name: "Kotlin" },
+  { id: 2, name: "Java" },
+  { id: 1, name: "Javacript" },
+]; */
+//Using for loop
+/* let grouped = {};
+for (let i = 0; i < arr.length; i++) {
+  let obj = arr[i];
+  let id = obj.id;
+  if (!grouped[id]) {
+    grouped[id] = [];
+  }
+  grouped[id].push(obj);
+}
+console.log(grouped); */
+//Using reduce
+/* let grouped = arr.reduce((acc, curr) => {
+  let key = curr.id;
+  if (!acc[key]) {
+    acc[key] = [];
+  }
+  acc[key].push(curr);
+  return acc;
+}, {});
+console.log(grouped); */
+//64.	Sort Array of Objects by Key
+/* let arr = [
+  { id: 3, name: "Kotlin" },
+  { id: 1, name: "Java" },
+  { id: 2, name: "Javacript" },
+];
+
+let sorted = [...arr].sort((a, b) => a.id - b.id);
+console.log(sorted); */
+
+// 65.	Add a Prefix to All Object Keys
+/* let obj = {
+  name: "Naveen",
+  age: 21,
+  lang: "English",
+}; */
+//Using for loop
+/* const prefix = "website";
+const result = {};
+for (const key in obj) {
+  result[prefix + key] = obj[key];
+}
+console.log(result); */
+//Using object.entries
+/* const prefix = "website";
+const result = Object.entries(obj).map(([key, value]) => [
+  `${prefix}${key}`,
+  value,
+]);
+console.log(Object.fromEntries(result)); */
+//Using reduce
+/* const prefix = "website";
+const result = Object.keys(obj).reduce((acc, key) => {
+  acc[prefix + key] = obj[key];
+  return acc;
+}, {});
+console.log(result); */
+// 66.	Find Most Expensive Product
+/* const products = [
+  { name: "Laptop", price: 500 },
+  { name: "Laptop1", price: 1200 },
+  { name: "Laptop2", price: 5001 },
+  { name: "Laptop3", price: 3000 },
+]; */
+//Using for loop
+/* let maxProduct = products[0];
+for (let i = 1; i < products.length; i++) {
+  if (products[i].price > maxProduct.price) {
+    maxProduct = products[i];
+  }
+} */
+//Using reduce
+/* const maxProduct = products.reduce((max, obj) => {
+  if (obj.price > max.price) {
+    max = obj;
+  }
+  return max;
+});
+console.log(maxProduct); */
+
+//Using sort
+/* const maxProduct = [...products].sort((a, b) => b.price - a.price)[0];
+console.log(maxProduct); */
+
+// 57.	Get Total Price of Cart
+/* const cart = [
+  { name: "Laptop", price: 5000, qty: 2 },
+  { name: "Phone", price: 1500, qty: 3 },
+  { name: "Mouse", price: 700, qty: 1 },
+  { name: "Earbuds", price: 900, qty: 1 },
+]; */
+//Using for loop
+/* let total = 0;
+for (let i = 0; i < cart.length; i++) {
+  total += cart[i].price * cart[i].qty;
+}
+console.log(total); */
+//Using reduce method
+/* let total = cart.reduce((sum, obj) => {
+  sum += obj.price * obj.qty;
+  return sum;
+}, 0);
+console.log(total); */
+//Using for of
+/* let total = 0;
+for (const item of cart) {
+  total += item.price * item.qty;
+}
+console.log(total); */
+// 68.	How to Calculate the Average Product Rating
+// const ratings = [4, 5, 3, 2, 4, 1];
+// using for loop
+/* let sum = 0;
+for (let i = 0; i < ratings.length; i++) {
+  sum += ratings[i];
+}
+const avg = sum / ratings.length;
+console.log(avg); */
+//Using reduce
+/* let avg =
+  ratings.reduce((sum, rating) => {
+    return (sum += rating);
+  }, 0) / ratings.length;
+console.log(avg); */
+
+// 69.	Create Breadcrumbs from URL
+/* const url = "/products/electronics/laptops";
+const parts = url.split("/").filter(Boolean);
+let breadcrumbs = [];
+let currentPath = "";
+for (let i = 0; i < parts.length; i++) {
+  currentPath += "/" + parts[i];
+  breadcrumbs.push({
+    name: parts[i],
+    path: currentPath,
+  });
+}
+console.log(breadcrumbs); */
+
+/*ASCII Values
+Each character has numeric code
+-Uppercase: 65-90
+-Lowercase letters:97-122
+-differnce:32  */
+
+// 70.	Convert Uppercase → Lowercase (ASCII)
+/* const toLowerCaseASCII = (str) => {
+  let result = "";
+  for (let i = 0; i < str.length; i++) {
+    let code = str.charCodeAt(i);
+    if (code >= 65 && code <= 90) {
+      result += String.fromCharCode(code + 32);
+    } else result += str[i];
+  }
+  return result;
+};
+console.log(toLowerCaseASCII("HeMantH")); */
+
+// 71.	Convert Lowercase → Uppercase (ASCII)
+/* const toUpperCaseASCII = (str) => {
+  let result = "";
+  for (let i = 0; i < str.length; i++) {
+    let code = str.charCodeAt(i);
+    if (code >= 97 && code <= 122) {
+      result += String.fromCharCode(code - 32);
+    } else result += str[i];
+  }
+  return result;
+};
+console.log(toUpperCaseASCII("HeMantH")); */
+// 72.	Find the Longest Word in a Sentence
+/* const longestWord = (str) => {
+  let words = str.split(" ");
+  let longest = "";
+  for (const word of words) {
+    if (word.length > longest.length) {
+      longest = word;
+    }
+  }
+  return longest;
+};
+console.log(longestWord("Hey my name is Raman Raghav")); */
+
+// 73.	Print Square Pattern (5×5)
+/* const squarePattern = () => {
+  let n = 5;
+  let star = "";
+  for (let i = 1; i <= n; i++) {
+    for (let j = 1; j <= n; j++) {
+      star += "*";
+    }
+    star += "\n";
+  }
+  console.log(star);
+};
+squarePattern(5); */
+// 74.	Print Right Triangle Star Pattern
+/* const rightAngledTriangle = () => {
+  let n = 5;
+  let star = "";
+  for (let i = 1; i <= n; i++) {
+    for (let j = 1; j <= i; j++) {
+      star += "*";
+    }
+    star += "\n";
+  }
+  console.log(star);
+};
+rightAngledTriangle(); */
+//Using repeat method
+/* let n = 5;
+for (let i = 1; i <= n; i++) {
+  console.log("*".repeat(i));
+} */
+// 75.	Print Inverted Triangle
+/* const invertedRightTriangle = () => {
+  let n = 5;
+  let star = "";
+  for (let i = n; i >= 1; i--) {
+    for (let j = 1; j <= i; j++) {
+      star += "*";
+    }
+    star += "\n";
+  }
+  console.log(star);
+};
+invertedRightTriangle(); */
+// 76.	Print Hollow Square 5×5
+/* const hollowSquare = (n) => {
+  let star = "";
+  for (let i = 1; i <= n; i++) {
+    for (let j = 1; j <= n; j++) {
+      if (i === 1 || j === 1 || j === n || i === n) {
+        star += "*";
+      } else {
+        star += " ";
+      }
+    }
+    star += "\n";
+  }
+  console.log(star);
+};
+hollowSquare(4); */
+// 77.	Print Number Triangle Pattern
+/* const numberTriangle = (n) => {
+  let count = "";
+  for (let i = 1; i <= n; i++) {
+    for (let j = 1; j <= i; j++) {
+      count = count + j;
+    }
+    count += "\n";
+  }
+  console.log(count);
+};
+numberTriangle(5); */
+// 78.	Print Hollow Left Triangle Pattern
+/* const hollowLeftTriangle = (n) => {
+  let star = "";
+  for (let i = 1; i <= n; i++) {
+    for (let j = 1; j <= i; j++) {
+      if (j === 1 || j == i || i === n) {
+        star += "*";
+      } else {
+        star += " ";
+      }
+    }
+    star += "\n";
+  }
+  console.log(star);
+};
+hollowLeftTriangle(5); */
+// 79.	Print Floyd’s Triangle
+/* const floydTriangle = (n) => {
+  let star = "";
+  let num = 1;
+  for (let i = 1; i <= n; i++) {
+    for (let j = 1; j <= i; j++) {
+      star += num + " ";
+      num++;
+    }
+    star += "\n";
+  }
+  console.log(star);
+};
+floydTriangle(5); */
+// 80.	Print Alphabet Triangle Pattern
+/* const alphabetTriangle = (n) => {
+  let alpha = "";
+  for (let i = 1; i <= n; i++) {
+    for (let j = 1; j <= i; j++) {
+      alpha += String.fromCharCode(64 + j);
+    }
+    alpha += "\n";
+  }
+  console.log(alpha);
+};
+alphabetTriangle(5); */
+// 81.	Print Square with Main Diagonal Stars
+/* const diagonalPattern = (n) => {
+  let star = "";
+  for (let i = 1; i <= n; i++) {
+    for (let j = 1; j <= n; j++) {
+      if (i === j) {
+        star += "*";
+      } else {
+        star += " ";
+      }
+    }
+    star += "\n";
+  }
+  console.log(star);
+};
+diagonalPattern(5); */
+// 82.	Print a 5×5 Square of Numbers (Same Number in Each Row)
+/* const numberSquare = (n) => {
+  let num = 1;
+  let pattern = "";
+  for (let i = 1; i <= n; i++) {
+    for (let j = 1; j <= n; j++) {
+      pattern += i;
+    }
+    pattern += "\n";
+  }
+  console.log(pattern);
+};
+numberSquare(5); */
+// 83.	Print a 5×5 Square using Alphabets
+/* const alphabetSquare = (n) => {
+  let num = 1;
+  let pattern = "";
+  for (let i = 1; i <= n; i++) {
+    for (let j = 1; j <= n; j++) {
+      pattern += String.fromCharCode(64 + i);
+    }
+    pattern += "\n";
+  }
+  console.log(pattern);
+};
+alphabetSquare(5); */
+// 84.	Find Transpose of a Matrix
+/* const transposeMatrix = (matrix) => {
+  let rows = matrix.length;
+  let colums = matrix[0].length;
+  let transpose = [];
+  for (let i = 0; i < colums; i++) {
+    transpose[i] = [];
+    for (let j = 0; j < rows; j++) {
+      transpose[i][j] = matrix[j][i];
+    }
+  }
+  console.log(transpose);
+};
+transposeMatrix([
+  [1, 2, 3],
+  [4, 5, 6],
+]); */
+// 85.	Add Two Matrices
+/* const addMatrices = (matrix1, matrix2) => {
+  let rows = matrix1.length;
+  let columns = matrix1[0].length;
+  let finalMatrix = [];
+  for (let i = 0; i < rows; i++) {
+    finalMatrix[i] = [];
+    for (let j = 0; j < columns; j++) {
+      finalMatrix[i][j] = matrix1[i][j] + matrix2[i][j];
+    }
+  }
+  console.log(finalMatrix);
+};
+addMatrices(
+  [
+    [1, 2, 3],
+    [4, 5, 6],
+  ],
+  [
+    [7, 8, 9],
+    [1, 2, 3],
+  ],
+); */
+// 86.	Check if a Matrix is Symmetric
+/* const isSymmetric = (matrix) => {
+  let n = matrix.length;
+  for (let i = 0; i < n; i++) {
+    for (let j = i + 1; j < n; j++) {
+      if (matrix[i][j] !== matrix[j][i]) {
+        return false;
+      }
+    }
+  }
+  return true;
+};
+console.log(
+  isSymmetric([
+    [1, 0, 0],
+    [0, 1, 0],
+    [0, 0, 1],
+  ]),
+);
+ */
+// 87.	Linear Search (Manual Implementation)
+/* let arr = [10, 20, 30, 40];
+const linearSearch = (arr, target) => {
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] === target) return i;
+  }
+  return -1;
+};
+console.log(linearSearch(arr, 50)); */
+
+// 88.	Binary Search (Iterative)
+/* let arr = [10, 20, 30, 40, 50];
+const binarySearch = (arr, target) => {
+  let low = 0;
+  let high = arr.length - 1;
+  while (low <= high) {
+    let mid = Math.floor((low + high) / 2);
+    if (arr[mid] === target) return mid;
+    if (arr[mid] < target) {
+      low = mid + 1;
+    } else {
+      high = mid - 1;
+    }
+  }
+  return -1;
+};
+console.log(binarySearch(arr, 40)); */
+// 89.	Bubble Sort (Optimized)-Compare adjacent elements and swap if the order is incorrect, repeat until no swaps are needed
+/* const bubbleSort = (arr) => {
+  let n = arr.length;
+  let swapped;
+  for (let i = 0; i < n; i++) {
+    swapped = false;
+    for (let j = 0; j < n - i - 1; j++) {
+      if (arr[j + 1] < arr[j]) {
+        [arr[j + 1], arr[j]] = [arr[j], arr[j + 1]];
+        swapped = true;
+      }
+    }
+    if (!swapped) break;
+  }
+  return arr;
+};
+console.time("Timer");
+console.log(bubbleSort([5, 3, 2, 4]));
+console.timeEnd("Timer");
+ */
+
+// 90.	Selection Sort-Assume the first element is the minimum, compare it with the rest of the elements to find the actual minimum, and swap it with the first element. Repeat for the next position until the array is sorted.
+/* const selectionSort = (arr) => {
+  let n = arr.length;
+  for (let i = 0; i < n - 1; i++) {
+    let minIndex = i;
+    for (let j = i + 1; j < n; j++) {
+      if (arr[j] < arr[minIndex]) {
+        minIndex = j;
+      }
+    }
+    if (minIndex !== i) {
+      [arr[i], arr[minIndex]] = [arr[minIndex], arr[i]];
+    }
+  }
+  return arr;
+};
+console.time("Timer");
+console.log(selectionSort([5, 2, 4, 8, 1]));
+console.timeEnd("Timer"); */
+
+// 91.	Insertion Sort-Sort the array by iterating through it and inserting each element into its correct position in the sorted portion of the array.
+/* const insertionSort = (arr) => {
+  for (let i = 1; i < arr.length; i++) {
+    let key = arr[i];
+    let j = i - 1;
+    while (j >= 0 && arr[j] > key) {
+      arr[j + 1] = arr[j];
+      j = j - 1;
+    }
+    arr[j + 1] = key;
+  }
+  console.log(arr);
+};
+console.time("Timer");
+insertionSort([5, 2, 4, 8, 1]);
+console.timeEnd("Timer"); */
+
+// 92.	Quick Sort (Recursive)-quick sort is a divide-and-conquer algorithm that selects a pivot element, partitions the array into two sub-arrays based on the pivot, and recursively sorts the sub-arrays.
+/* const quickSort = (arr) => {
+  if (arr.length <= 1) return arr;
+  let pivot = arr[arr.length - 1];
+
+  let left = [];
+  let right = [];
+  for (let i = 0; i < arr.length - 1; i++) {
+    if (arr[i] < pivot) {
+      left.push(arr[i]);
+    } else {
+      right.push(arr[i]);
+    }
+  }
+  return [...quickSort(left), pivot, ...quickSort(right)];
+};
+console.time("Timer");
+console.log(quickSort([5, 2, 4, 8, 1, 3, 7, 6]));
+console.timeEnd("Timer"); */
+
+// 93.	Find Subarray with Maximum Sum(Kadane's Algorithm)
+// kadane Algorithm
+/* const maxSubArraySum = (arr) => {
+  let maxSum = arr[0];
+  let currentSum = arr[0];
+  for (let i = 1; i < arr.length; i++) {
+    currentSum = Math.max(arr[i], currentSum + arr[i]);
+    maxSum = Math.max(currentSum, maxSum);
+    console.log("Iteration " + i + "= " + currentSum, maxSum);
+  }
+  return maxSum;
+};
+console.log(maxSubArraySum([-2, 1, -3, 4, -1, 2, 1, -5, 4])); */
+
+// 94.	Custom map() Implementation
+/* const myMap = (arr, cb) => {
+  let result = [];
+  for (let i = 0; i < arr.length; i++) {
+    result[i] = cb(arr[i], i, arr);
+  }
+  return result;
+  // return (result = arr.map(cb));
+};
+console.log(myMap([1, 2, 3, , 4, 5], (num) => num * 2)); */
+// 95.	Custom filter() Implementation
+/* const myFilter = (arr, cb) => {
+  let result = [];
+  for (let i = 0; i < arr.length; i++) {
+    if (cb(arr[i], i, arr)) {
+      result = [...result, arr[i]];
+    }
+  }
+  return result;
+};
+console.log(myFilter([1, 2, 3, , 4, 5], (num) => num % 2 === 0)); */
+// 96.	Custom reduce() Implementation
+/* const myReduce = (arr, cb, initialValue) => {
+  let acc = initialValue;
+  let startIndex = 0;
+  if (acc === undefined) {
+    acc = arr[0];
+    console.log(acc);
+    startIndex = 1;
+  }
+  for (let i = startIndex; i < arr.length; i++) {
+    acc = cb(acc, arr[i], i, arr);
+    console.log(acc);
+  }
+  return acc;
+};
+console.log(myReduce([1, 2, 3, 4, 5], (acc, curr) => acc + curr)); */
+// 97.	Two Sum (Using HashMap – Optimal)-The difference between the target and the current element is calculated, and if that difference exists in the map, it means we have found a pair that sums up to the target. The indices of the two elements are returned as an array.
+/* const twoSum = (arr, target) => {
+  let map = {}; //[number,index]
+  for (let i = 0; i < arr.length; i++) {
+    let diff = target - arr[i];
+    if (map[diff] !== undefined) {
+      return [map[diff], i];
+    }
+    map[arr[i]] = i;
+    console.log(map);
+  }
+  return [];
+};
+console.log(twoSum([2, 7, 11, 15], 13)); */
+// 98.	Freeze Object (Immutable)-shallow freeze, nested objects can still be modified. To make an object completely immutable, you can use a deep freeze function that recursively freezes all nested objects.
+/* const obj = {
+  name: "Arya",
+  age: 21,
+};
+Object.freeze(obj);
+obj.name = "Daya";
+obj.age = 25;
+delete obj.age;
+console.log(obj); */
+// 99.	Object.seal() Example
+const obj = {
+  name: "Arya",
+  age: 21,
+};
+Object.seal(obj);
+obj.name = "Daya";
+obj.age = 25;
+obj.city = "Delhi";
+delete obj.age;
+console.log(obj);
+// 100.	Toggle Case in JavaScript
+const toggleCase = (str) => {
+  let result = "";
+  for (let ch of str) {
+    if (ch >= "A" && ch <= "Z") {
+      result += ch.toLowerCase();
+    } else if (ch >= "a" && ch <= "z") {
+      result += ch.toUpperCase();
+    } else {
+      result += ch;
+    }
+  }
+};
